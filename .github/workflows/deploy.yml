@@ -34,6 +34,22 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
+
+          if [ -z "${{ secrets.AWS_HOST }}" ]; then
+            echo "AWS_HOST secret is missing"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.AWS_USER }}" ]; then
+            echo "AWS_USER secret is missing"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.AWS_SSH_PRIVATE_KEY }}" ]; then
+            echo "AWS_SSH_PRIVATE_KEY secret is missing"
+            exit 1
+          fi
+
           echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/luckydna_aws_key
           chmod 600 ~/.ssh/luckydna_aws_key
           ssh-keyscan -H "${{ secrets.AWS_HOST }}" >> ~/.ssh/known_hosts
