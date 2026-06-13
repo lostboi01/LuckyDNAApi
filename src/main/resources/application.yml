@@ -1,17 +1,18 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/luckydna
-    username: luckydna
-    password: luckydna
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/luckydna}
+    username: ${SPRING_DATASOURCE_USERNAME:luckydna}
+    password: ${SPRING_DATASOURCE_PASSWORD:luckydna}
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     open-in-view: false
 
 app:
   jwt:
-    secret: change-this-to-a-long-random-secret-key-at-least-256-bits
-    expiration-ms: 86400000
+    secret: ${APP_JWT_SECRET}
+    expiration-ms: ${APP_JWT_EXPIRATION_MS:86400000}
 
 info:
   app:
