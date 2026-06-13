@@ -13,8 +13,22 @@ app:
     secret: change-this-to-a-long-random-secret-key-at-least-256-bits
     expiration-ms: 86400000
 
+info:
+  app:
+    name: LuckyDNA API
+    company: The Snell AI Group LLC
+    version: 0.0.1
+
 management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: health,info,metrics,prometheus
+
+  endpoint:
+    health:
+      show-details: when_authorized
+
+  info:
+    env:
+      enabled: true
