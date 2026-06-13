@@ -4,6 +4,10 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:luckydna}
     password: ${SPRING_DATASOURCE_PASSWORD:luckydna}
 
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
