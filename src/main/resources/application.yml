@@ -5,7 +5,7 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD:luckydna}
 
   flyway:
-    enabled: false
+    enabled: true
 
   jpa:
     hibernate:
