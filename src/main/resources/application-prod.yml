@@ -39,3 +39,5 @@ logging:
     root: INFO
     com.thesnellai.luckydna: INFO
     org.springframework.security: WARN
+    org.flywaydb: DEBUG
+    org.springframework.boot.autoconfigure.flyway: DEBUG
