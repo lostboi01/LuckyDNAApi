@@ -1,5 +1,7 @@
 package com.thesnellai.luckydna.controllers;
 
+import com.thesnellai.luckydna.arenas.ArenaCode;
+import com.thesnellai.luckydna.dto.SavePlayRequest;
 import com.thesnellai.luckydna.models.User;
 import com.thesnellai.luckydna.models.SavedPlay;
 import com.thesnellai.luckydna.repositories.SavedPlayRepository;
@@ -37,6 +39,15 @@ public class SavedPlayController {
     ) {
         var play = new SavedPlay();
         play.setUser(user);
+
+        System.out.println("Save request arenaCode = " + request.arenaCode());
+
+        play.setArenaCode(
+                request.arenaCode() == null
+                        ? ArenaCode.POWERBALL
+                        : request.arenaCode()
+        );
+
         play.setPlayDate(request.playDate());
         play.setWhiteBall1(request.whiteBall1());
         play.setWhiteBall2(request.whiteBall2());
@@ -60,35 +71,31 @@ public class SavedPlayController {
         repository.delete(play);
     }
 
-    public record SavePlayRequest(
-            LocalDate playDate,
-            @Min(1) @Max(69) Integer whiteBall1,
-            @Min(1) @Max(69) Integer whiteBall2,
-            @Min(1) @Max(69) Integer whiteBall3,
-            @Min(1) @Max(69) Integer whiteBall4,
-            @Min(1) @Max(69) Integer whiteBall5,
-            @Min(1) @Max(26) Integer powerBall
-    ) {}
+
 
     public record SavedPlayResponse(
             Long id,
+            ArenaCode arenaCode,
             Integer whiteBall1,
             Integer whiteBall2,
             Integer whiteBall3,
             Integer whiteBall4,
             Integer whiteBall5,
             Integer powerBall,
+            LocalDate playDate,
             Instant createdAt
     ) {
         static SavedPlayResponse from(SavedPlay play) {
             return new SavedPlayResponse(
                     play.getId(),
+                    play.getArenaCode(),
                     play.getWhiteBall1(),
                     play.getWhiteBall2(),
                     play.getWhiteBall3(),
                     play.getWhiteBall4(),
                     play.getWhiteBall5(),
                     play.getPowerBall(),
+                    play.getPlayDate(),
                     play.getCreatedAt()
             );
         }

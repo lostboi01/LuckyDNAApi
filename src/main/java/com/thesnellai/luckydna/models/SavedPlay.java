@@ -1,5 +1,6 @@
 package com.thesnellai.luckydna.models;
 
+import com.thesnellai.luckydna.arenas.ArenaCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +29,8 @@ public class SavedPlay {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "arena_code", nullable = false)
+    private ArenaCode arenaCode = ArenaCode.POWERBALL;
 }
